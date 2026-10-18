@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+*.pyc
+previous-app/
+Patcher.iconset/
+Icon.swift
