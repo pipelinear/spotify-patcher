@@ -11,10 +11,10 @@ xcrun swiftc -swift-version 5 -O -target arm64-apple-macos13.0 -framework AppKit
 cp "$PATCHER_ROOT/backend.py" "$PATCHER_ROOT/chroma.py" "$PATCHER_ROOT/index.html" "$PATCHER_ROOT/style.css" "$PATCHER_ROOT/app.js" "$APP/Contents/Resources/"
 cp -R "$PATCHER_ROOT/assets" "$APP/Contents/Resources/"
 cp "$PATCHER_ROOT/Patcher.icns" "$APP/Contents/Resources/Patcher.icns"
-python3 - "$APP" "$PATCHER_ROOT" <<'PY'
-import json, plistlib, sys
+python3 - "$APP" <<'PY'
+import plistlib, sys
 from pathlib import Path
-app, root = map(Path, sys.argv[1:])
+app = Path(sys.argv[1])
 info = dict(CFBundleName='Spotify Patcher', CFBundleDisplayName='Spotify Patcher',
             CFBundleIdentifier='local.spotify.patcher', CFBundleVersion='5',
             CFBundleShortVersionString='2.3', CFBundleExecutable='SpotifyPatcher',
@@ -23,8 +23,7 @@ info = dict(CFBundleName='Spotify Patcher', CFBundleDisplayName='Spotify Patcher
             CFBundleDocumentTypes=[dict(CFBundleTypeName='Spotify IPA', CFBundleTypeRole='Editor',
                 LSHandlerRank='Alternate', CFBundleTypeExtensions=['ipa'])])
 (app/'Contents/Info.plist').write_bytes(plistlib.dumps(info))
-config = dict(existing_theos=str(root.parent/'build-tools/theos'), existing_cyan=str(root.parent/'build-tools/bin/cyan'))
-(app/'Contents/Resources/config.json').write_text(json.dumps(config))
+(app/'Contents/Resources/config.json').write_text('{}\n')
 PY
 codesign --force --deep --sign - "$APP"
 printf 'Built %s\n' "$APP"

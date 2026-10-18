@@ -4,7 +4,17 @@
 
 **Spotify Patcher** is a Mac app that helps you prepare a decrypted Spotify IPA with **Vitrine** or **Chroma**. Drop in your file, choose a mod, and click **Patch**. The app handles the build, checks the result, and puts the finished IPA where you can find it.
 
+**[Download Spotify Patcher for Mac](https://github.com/pipelinear/spotify-patcher/releases/latest)** · Apple silicon · macOS 13+
+
 ![Spotify Patcher with a Spotify IPA selected and Vitrine ready to patch](assets/tutorial-patch.png)
+
+## Install the app
+
+1. Download the **DMG** from the [latest release](https://github.com/pipelinear/spotify-patcher/releases/latest).
+2. Open it and drag **Spotify Patcher.app** to **Applications**.
+3. Open Spotify Patcher. This release is not notarized, so macOS may block the first launch. If it does, try opening it once, then go to **System Settings → Privacy & Security → Open Anyway**. [Apple explains this first-open step](https://support.apple.com/en-lamr/102445).
+
+The release also includes a ZIP containing the app if you prefer that format. You do not need to run the source build command to use the downloaded app.
 
 ## Why use Spotify Patcher?
 
@@ -52,5 +62,3 @@ bash build-app.sh
 ```
 
 The build creates `../Spotify Patcher.app`. It is signed locally for development and is not notarized. The app uses a native AppKit window with a local WebKit interface; `backend.py` performs validation, patching, verification, and output saving. Build logs are kept at `~/Library/Caches/VitrinePatcher/last-build.jsonl`.
-
-Spotify Patcher is made by [Pipelinear](https://github.com/pipelinear). Vitrine and Chroma are separate projects by their respective developers. Spotify Patcher is not affiliated with Spotify, Vitrine, Chroma, or Sideloadly.
